@@ -1,0 +1,31 @@
+{
+  "name": "postfox",
+  "version": "0.0.1",
+  "description": "Library for Concatenative Programming in JavaScript",
+  "main": "./",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  },
+  "author": {
+    "name": "foxdonut",
+    "email": "foxdonut@email.com",
+    "url": "http://foxdonut.com"
+  },
+  "license": "BSD",
+  "dependencies": {
+    "underscore": "~1.6.0"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "null"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "grunt": "~0.4.3",
+    "grunt-mocha-test": "~0.9.4"
+  }
+}
