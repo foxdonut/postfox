@@ -5,24 +5,6 @@ var cons = function(el, lst) {
   return lst;
 };
 
-var concatenative = function() {
-  var args = _.toArray(arguments);
-  return _.reduce(args,
-    function(lst, next) {
-      if (_.isFunction(next)) {
-        var l = _.first(lst);
-        var r = _.first(_.rest(lst));
-        var rest = _.rest(_.rest(lst));
-        return cons(next(r, l), rest);
-      }
-      else {
-        return cons(next, lst);
-      }
-    },
-    []
-  );
-};
-
 var plus  = function(a,b) { return a + b; };
 var minus = function(a,b) { return a - b; };
 var times = function(a,b) { return a * b; };
@@ -30,10 +12,6 @@ var divide = function(a,b) { return a / b; };
 var lengthOf = function(obj) { return obj.length; };
 var equal = function(a,b) { return a == b; };
 var equ = function(a,b) { return a === b; };
-
-console.log("concatenative");
-console.log( concatenative(5, 1, 2, plus, 4, times, plus, 3, minus) );
-console.log("--");
 
 // Every time there is a function, the value before is expected to be the number
 // of values to take from the stack and pass to the function.
