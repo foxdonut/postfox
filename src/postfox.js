@@ -159,6 +159,7 @@ exports.lengthOf = lengthOf;
 exports.equal = equal;
 exports.equ = equ;
 
+exports.cons = cons;
 exports.postfix = postfix;
 exports.postfix2 = postfix2;
 exports.postfix3 = postfix3;
