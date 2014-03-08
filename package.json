@@ -1,10 +1,12 @@
 {
   "name": "postfox",
   "version": "0.0.1",
+  "repository": "https://github.com/foxdonut/postfox",
   "description": "Library for Concatenative Programming in JavaScript",
   "main": "./",
   "scripts": {
-    "test": "grunt test"
+    "//": "grunt test",
+    "test": "gulp.js test"
   },
   "engines": {
     "node": "0.10.x",
@@ -21,11 +23,12 @@
   },
   "keywords": [],
   "bugs": {
-    "url": "null"
+    "url": "http://www.google.ca"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
     "grunt": "~0.4.3",
-    "grunt-mocha-test": "~0.9.4"
+    "grunt-mocha-test": "~0.9.4",
+    "gulp-mocha": "^0.4.1"
   }
 }
