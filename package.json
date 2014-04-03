@@ -6,7 +6,7 @@
   "main": "./",
   "scripts": {
     "//": "grunt test",
-    "test": "gulp.js test"
+    "test": "gulp test"
   },
   "engines": {
     "node": "0.10.x",
@@ -29,6 +29,7 @@
     "mocha": "~1.17.1",
     "grunt": "~0.4.3",
     "grunt-mocha-test": "~0.9.4",
-    "gulp-mocha": "^0.4.1"
+    "gulp-mocha": "^0.4.1",
+    "gulp": "^3.6.0"
   }
 }

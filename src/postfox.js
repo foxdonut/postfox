@@ -42,7 +42,7 @@ var quot = function() {
 
     if (_.isFunction(next)) {
       var nextFn = _.partial.apply(null, cons(next, args));
-      fn = (fn == null) ? nextFn : _.compose(nextFn, fn);
+      fn = (fn) ? _.compose(nextFn, fn) : nextFn;
       args = [];
     }
     else {
@@ -53,7 +53,7 @@ var quot = function() {
   return fn;
 };
 
-var run = function() {
+var postfox = function() {
   return _.reduce(_.toArray(arguments),
     function(lst, next) {
       if (_.isFunction(next)) {
@@ -71,18 +71,18 @@ var run = function() {
   )[0];
 };
 
-exports.plus = plus;
-exports.minus = minus;
-exports.times = times;
-exports.divide = divide;
-exports.lengthOf = lengthOf;
-exports.equal = equal;
-exports.equ = equ;
+postfox.plus = plus;
+postfox.minus = minus;
+postfox.times = times;
+postfox.divide = divide;
+postfox.lengthOf = lengthOf;
+postfox.equal = equal;
+postfox.equ = equ;
 
-exports.cons = cons;
-exports.applyFunction = applyFunction;
-exports.arity = arity;
-exports.quot = quot;
+postfox.cons = cons;
+postfox.applyFunction = applyFunction;
+postfox.arity = arity;
+postfox.quot = quot;
 
-exports.run = run;
+module.exports = postfox;
 
