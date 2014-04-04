@@ -12,7 +12,7 @@ var plus = postfox.plus,
     equ = postfox.equ,
     cons = postfox.cons,
     arity = postfox.arity,
-    quot  = postfox.quot;
+    qtn  = postfox.qtn;
 
 describe("postfox", function() {
   it("uses function length", function() {
@@ -20,15 +20,15 @@ describe("postfox", function() {
   });
 
   it("uses quotations and function arity from helper", function() {
-    assert.equal(15, postfox([1, 2, 3, 4, 5], quot(plus), 0, arity(3, _.reduce)));
+    assert.equal(15, postfox([1, 2, 3, 4, 5], qtn(plus), 0, arity(3, _.reduce)));
   });
 
   it("does partial function application in quotation", function() {
-    assert.deepEqual([10, 20, 30, 40, 50], postfox([1, 2, 3, 4, 5], quot(10, times), arity(2, _.map)));
+    assert.deepEqual([10, 20, 30, 40, 50], postfox([1, 2, 3, 4, 5], qtn(10, times), arity(2, _.map)));
   });
 
   it("does multiple partial function application in quotation", function() {
-    assert.deepEqual([16, 20, 24, 28, 32], postfox([1, 2, 3, 4, 5], quot(3, plus, 4, times), arity(2, _.map)));
+    assert.deepEqual([16, 20, 24, 28, 32], postfox([1, 2, 3, 4, 5], qtn(3, plus, 4, times), arity(2, _.map)));
   });
 
   it("provides utility functions", function() {

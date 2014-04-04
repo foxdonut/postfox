@@ -31,7 +31,7 @@ var arity = function(argCount, originalFn) {
 };
 
 // Indicates a quotation. Also experimenting with partial function application.
-var quot = function() {
+var qtn = function() {
   var incoming = _.toArray(arguments);
 
   var args = [];
@@ -49,7 +49,7 @@ var quot = function() {
       args.push(next);
     }
   }
-  fn.quot = true;
+  fn.qtn = true;
   return fn;
 };
 
@@ -57,7 +57,7 @@ var postfox = function() {
   return _.reduce(_.toArray(arguments),
     function(lst, next) {
       if (_.isFunction(next)) {
-        if (next.quot) {
+        if (next.qtn) {
           return cons(next, lst);
         }
         else {
@@ -80,7 +80,7 @@ postfox.equal = equal;
 postfox.equ = equ;
 postfox.cons = cons;
 postfox.arity = arity;
-postfox.quot = quot;
+postfox.qtn = qtn;
 
 module.exports = postfox;
 
