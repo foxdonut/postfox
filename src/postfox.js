@@ -102,6 +102,7 @@ postfox.divide = divide;
 postfox.lengthOf = lengthOf;
 postfox.equal = equal;
 postfox.equ = equ;
+postfox.cons = cons;
 postfox.arity = arity;
 postfox.qtn = qtn;
 postfox.postfunc = postfunc;
