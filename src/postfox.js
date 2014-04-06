@@ -14,10 +14,10 @@ var equal = function(a,b) { return a == b; };
 var equ = function(a,b) { return a === b; };
 
 var applyFunction = function(fn, argCount, lst) {
-  var fnArgs = _(lst).first(argCount).reverse();
-  var rest = _(lst).rest(argCount);
-
-  return cons(fn.apply(null, fnArgs), rest);
+  var fnArgs = _(lst).last(argCount);
+  var rest = _(lst).first(lst.length - argCount);
+  rest.push(fn.apply(null, fnArgs));
+  return rest;
 };
 
 // A helper function is used to establish the number of parameters to
@@ -53,19 +53,29 @@ var qtn = function() {
   return fn;
 };
 
+var postfunc = function() {
+  return function() {
+    return "coming soon";
+  };
+};
+
 var postfox = function() {
   return _.reduce(_.toArray(arguments),
     function(lst, next) {
       if (_.isFunction(next)) {
         if (next.qtn) {
-          return cons(next, lst);
+          lst.push(next);
+          return lst;
         }
         else {
           var argCount = next.argCount || next.length;
           return applyFunction(next, argCount, lst);
         }
       }
-      return cons(next, lst);
+      else {
+        lst.push(next);
+        return lst;
+      }
     },
     []
   )[0];
@@ -78,9 +88,9 @@ postfox.divide = divide;
 postfox.lengthOf = lengthOf;
 postfox.equal = equal;
 postfox.equ = equ;
-postfox.cons = cons;
 postfox.arity = arity;
 postfox.qtn = qtn;
+postfox.postfunc = postfunc;
 
 module.exports = postfox;
 
