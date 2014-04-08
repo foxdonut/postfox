@@ -13,7 +13,7 @@ var plus = postfox.plus,
     cons = postfox.cons,
     arity = postfox.arity,
     qtn  = postfox.qtn,
-    postfunc = postfox.postfunc;;
+    postfunc = postfox.postfunc;
 
 describe("postfox", function() {
   it("uses function length", function() {
@@ -38,10 +38,12 @@ describe("postfox", function() {
     };
 
     var avg2 = postfunc(plus, 2, divide);
+    var avg3 = postfunc(avg2, avg2);
 
     assert.equal(42, postfox(80, 4, avg1));
     assert.equal(42, postfox(80, 4, avg2));
     assert.equal(27, postfox(2, 80, 4, avg2, plus, 10, avg2));
+    assert.equal(40, postfox(10, 60, 80, avg3));
   });
 
   it("provides utility functions", function() {
