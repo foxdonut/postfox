@@ -106,6 +106,8 @@ postfox.cons = cons;
 postfox.arity = arity;
 postfox.qtn = qtn;
 postfox.postfunc = postfunc;
+postfox.step = postfoxStep;
+postfox.process = postfoxProcess;
 
 module.exports = postfox;
 
