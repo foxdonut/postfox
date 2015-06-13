@@ -18,6 +18,8 @@
     "url": "https://github.com/foxdonut/postfox/issues"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
+    "functional-pipeline": "^0.4.1",
     "mocha": "^2.2.5"
   }
 }
