@@ -8,7 +8,7 @@ FIXME
 
 ## License
 
-Copyright © 2014 Fred Daoud
+Copyright © 2014-2015 Fred Daoud
 
 Distributed under The MIT License (MIT).
 

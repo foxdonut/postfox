@@ -1,4 +1,4 @@
-var _ = require("underscore");
+var _ = require("lodash");
 
 var cons = function(el, lst) {
   lst.unshift(el);
@@ -19,8 +19,8 @@ var equal = function(a,b) { return a == b; };
 var equ = function(a,b) { return a === b; };
 
 var applyFunction = function(fn, argCount, lst) {
-  var fnArgs = _(lst).last(argCount);
-  var rest = _(lst).first(lst.length - argCount);
+  var fnArgs = _.takeRight(lst, argCount);
+  var rest = _.take(lst, lst.length - argCount);
   return push(fn.apply(null, fnArgs), rest);
 };
 
