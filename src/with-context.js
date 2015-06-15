@@ -20,32 +20,32 @@ var gatherArgs = function(args) {
   return result;
 };
 
-var verifyIfNoFunction = function(gatheredArgs) {
-  if (_.isEmpty(gatheredArgs.functions)) {
+var verifyIfNoFunction = function(argsObject) {
+  if (_.isEmpty(argsObject.functions)) {
     throw new Error("Expecting one function, but none provided.");
   }
-  return gatheredArgs;
+  return argsObject;
 };
 
-var verifyIfMultipleFunctions = function(gatheredArgs) {
-  if (gatheredArgs.functions.length > 1) {
+var verifyIfMultipleFunctions = function(argsObject) {
+  if (argsObject.functions.length > 1) {
     throw new Error("Expecting one function, but multiple provided.");
   }
-  return gatheredArgs;
+  return argsObject;
 }
 
-var verifyIfMultipleResultProps = function(gatheredArgs) {
-  if (gatheredArgs.results.length > 1) {
+var verifyIfMultipleResultProps = function(argsObject) {
+  if (argsObject.results.length > 1) {
     throw new Error("Expecting zero or one result property, but multiple provided.");
   }
-  return gatheredArgs;
+  return argsObject;
 };
 
 var ctx = function() {
   var args = _.toArray(arguments);
-  var gatheredArgs = gatherArgs(args);
+  var argsObject = gatherArgs(args);
 
-  _.flow(verifyIfNoFunction, verifyIfMultipleFunctions, verifyIfMultipleResultProps)(gatheredArgs);
+  _.flow(verifyIfNoFunction, verifyIfMultipleFunctions, verifyIfMultipleResultProps)(argsObject);
 
   var getParams = function(context, params) {
     return _.isEmpty(params) ? [context] : _.map(params, _.partial(_.get, context));
@@ -60,8 +60,8 @@ var ctx = function() {
   };
 
   return function(context) {
-    var params = getParams(context, gatheredArgs.params);
-    return getResult(gatheredArgs.functions[0].apply(null, params), gatheredArgs.results, context);
+    var params = getParams(context, argsObject.params);
+    return getResult(argsObject.functions[0].apply(null, params), argsObject.results, context);
   };
 };
 
