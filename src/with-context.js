@@ -47,25 +47,21 @@ var ctx = function() {
 
   _.flow(verifyIfNoFunction, verifyIfMultipleFunctions, verifyIfMultipleResultProps)(gatheredArgs);
 
+  var getParams = function(context, params) {
+    return _.isEmpty(params) ? [context] : _.map(params, _.partial(_.get, context));
+  };
+
+  var getResultObject = function(fnResult, results, context) {
+    return _.extend(_.set({}, results[0], fnResult), context);
+  };
+
+  var getResult = function(fnResult, results, context) {
+    return _.isEmpty(results) ? fnResult : getResultObject(fnResult, results, context);
+  };
+
   return function(context) {
-    var params = _.isEmpty(gatheredArgs.params) ? [context] :
-      _.map(gatheredArgs.params, function(prop) {
-        return context[prop];
-      });
-
-    var result = null;
-
-    var fnResult = gatheredArgs.functions[0].apply(null, params);
-
-    if (!_.isEmpty(gatheredArgs.results)) {
-      var obj = {};
-      obj[gatheredArgs.results[0]] = fnResult;
-      result = _.extend(obj, context);
-    }
-    else {
-      result = fnResult;
-    }
-    return result;
+    var params = getParams(context, gatheredArgs.params);
+    return getResult(gatheredArgs.functions[0].apply(null, params), gatheredArgs.results, context);
   };
 };
 
