@@ -1,62 +1,65 @@
 var _ = require("lodash");
 
-var ctx = function() {
-  var args = _.toArray(arguments);
-  var paramProps = [];
-  var fn = null;
-  var resultProp = null;
-  var foundFunction = false;
-  var foundMultipleFunctions = false;
-  var foundMultipleResultProps = false;
+var determineTarget = function(arg, result) {
+  return _.isFunction(arg) ? "functions" :
+    (_.isEmpty(result.functions) ? "params" : "results");
+};
+
+var gatherArgs = function(args) {
+  var result = {
+    params: [],
+    functions: [],
+    results: []
+  };
 
   for (var i = 0, t = args.length; i < t; i++) {
     var arg = args[i];
-
-    if (_.isFunction(arg)) {
-      if (foundFunction) {
-        foundMultipleFunctions = true;
-      }
-      else {
-        fn = arg;
-        foundFunction = true;
-      }
-    }
-    else if (foundFunction) {
-      if (resultProp) {
-        foundMultipleResultProps = true;
-      }
-      else {
-        resultProp = arg;
-      }
-    }
-    else {
-      paramProps.push(arg);
-    }
+    result[determineTarget(arg, result)].push(arg);
   }
 
-  if (!foundFunction) {
+  return result;
+};
+
+var verifyIfNoFunction = function(gatheredArgs) {
+  if (_.isEmpty(gatheredArgs.functions)) {
     throw new Error("Expecting one function, but none provided.");
   }
-  if (foundMultipleFunctions) {
+  return gatheredArgs;
+};
+
+var verifyIfMultipleFunctions = function(gatheredArgs) {
+  if (gatheredArgs.functions.length > 1) {
     throw new Error("Expecting one function, but multiple provided.");
   }
-  if (foundMultipleResultProps) {
+  return gatheredArgs;
+}
+
+var verifyIfMultipleResultProps = function(gatheredArgs) {
+  if (gatheredArgs.results.length > 1) {
     throw new Error("Expecting zero or one result property, but multiple provided.");
   }
+  return gatheredArgs;
+};
+
+var ctx = function() {
+  var args = _.toArray(arguments);
+  var gatheredArgs = gatherArgs(args);
+
+  _.flow(verifyIfNoFunction, verifyIfMultipleFunctions, verifyIfMultipleResultProps)(gatheredArgs);
 
   return function(context) {
-    var params = _.isEmpty(paramProps) ? [context] :
-      _.map(paramProps, function(prop) {
+    var params = _.isEmpty(gatheredArgs.params) ? [context] :
+      _.map(gatheredArgs.params, function(prop) {
         return context[prop];
       });
 
     var result = null;
 
-    var fnResult = fn.apply(null, params);
+    var fnResult = gatheredArgs.functions[0].apply(null, params);
 
-    if (resultProp) {
+    if (!_.isEmpty(gatheredArgs.results)) {
       var obj = {};
-      obj[resultProp] = fnResult;
+      obj[gatheredArgs.results[0]] = fnResult;
       result = _.extend(obj, context);
     }
     else {
@@ -67,3 +70,4 @@ var ctx = function() {
 };
 
 module.exports = ctx;
+
