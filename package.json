@@ -1,6 +1,6 @@
 {
   "name": "postfox",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": "https://github.com/foxdonut/postfox",
   "description": "Library for Concatenative Programming in JavaScript",
   "main": "./src/postfox.js",
@@ -10,16 +10,15 @@
   },
   "author": "foxdonut",
   "license": "MIT",
-  "dependencies": {
-    "lodash": "^3.9.3"
-  },
   "keywords": [],
   "bugs": {
     "url": "https://github.com/foxdonut/postfox/issues"
   },
+  "dependencies": {
+    "lodash": "*"
+  },
   "devDependencies": {
     "chai": "^3.0.0",
-    "functional-pipeline": "^0.4.1",
     "mocha": "^2.2.5"
   }
 }
